@@ -21,18 +21,18 @@ def main():
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    if os.path.exists('resources/token.json'):
+        creds = Credentials.from_authorized_user_file('resources/token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+                'resources/credentialsasd.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open('token.json', 'w') as token:
+        with open('resources/token.json', 'w') as token:
             token.write(creds.to_json())
 
     try:
@@ -67,18 +67,18 @@ def create_events(service):
         'location': '800 Howard St., San Francisco, CA 94103',
         'description': 'A chance to hear more about Google\'s developer products.',
         'start': {
-            'dateTime': '2023-03-05T09:00:00-07:00',
+            'dateTime': '2023-03-19T09:00:00-07:00',
             'timeZone': 'America/Los_Angeles',
         },
         'end': {
-            'dateTime': '2023-03-05T17:00:00-07:00',
+            'dateTime': '2023-03-19T17:00:00-07:00',
             'timeZone': 'America/Los_Angeles',
         },
         'recurrence': [
             'RRULE:FREQ=DAILY;COUNT=2'
         ],
         'attendees': [
-            {'email': 'mrressrus@gmail.com'},
+            {'email': 'zmaev.vsu@gmail.com'},
         ],
         'reminders': {
             'useDefault': False,
@@ -90,6 +90,7 @@ def create_events(service):
     }
     event = service.events().insert(calendarId='primary', body=event).execute()
     print('Event created: %s' % (event.get('htmlLink')))
+
 
 if __name__ == '__main__':
     main()
