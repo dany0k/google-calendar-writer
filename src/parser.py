@@ -18,42 +18,27 @@ def get_merged_cell_value(row, col) -> str:
 
 
 def parse_nominator_schedule(group_num) -> list:
-    schedule_numerator = list()
+    schedule_numerator = []
     col_start = 4
     for i in range(col_start, worksheet.nrows):
         if worksheet.cell_value(i, 1) != '':
             val = get_merged_cell_value(i, group_num)
             if val is None:
                 val = worksheet.cell_value(i, group_num)
-            schedule_numerator.append(
-                {f"{get_merged_cell_value(i, 0)} {get_merged_cell_value(i, 1)}": val})
+            schedule_numerator.append([get_merged_cell_value(i, 0), get_merged_cell_value(i, 1), val])
     return schedule_numerator
 
 
 def parse_denominator_schedule(group_num) -> list:
-    schedule_denominator = list()
+    schedule_denominator = []
     i = 5
     while i <= worksheet.nrows - 1:
         val = get_merged_cell_value(i, group_num)
         if val is None:
             val = worksheet.cell_value(i, group_num)
-        schedule_denominator.append({f"{get_merged_cell_value(i, 0)} {get_merged_cell_value(i, 1)} I: {i}": val})
-        delimeter_list = [19, 36, 53, 70, 87]
-        if i in delimeter_list:
+        schedule_denominator.append([get_merged_cell_value(i, 0), get_merged_cell_value(i, 1), val])
+        delimiter_list = [19, 36, 53, 70, 87]
+        if i in delimiter_list:
             i += 1
         i += 2
     return schedule_denominator
-
-
-def main():
-    group1_schedule_numerator = parse_nominator_schedule(67)
-    group1_schedule_denominator = parse_denominator_schedule(67)
-
-    for i in range(len(group1_schedule_denominator)):
-        print(group1_schedule_denominator[i], "\n")
-
-    # for i in range(len(group1_schedule_numerator)):
-    #     print(group1_schedule_numerator[i], "\n")
-
-if __name__ == '__main__':
-    main()
