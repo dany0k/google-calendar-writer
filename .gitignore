@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Secret data not need to be uploaded
+./src/resources/token.json
