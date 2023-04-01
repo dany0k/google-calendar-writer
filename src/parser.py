@@ -1,18 +1,14 @@
+from datetime import time
+
 import xlrd
 
 
 class Parser:
-
     workbook: xlrd.book
     worksheet: xlrd.book.XL_WORKSHEET
 
     def __init__(self, schedule_path):
-        try:
-            self.workbook = xlrd.open_workbook(schedule_path, formatting_info=True)
-        except FileNotFoundError as err:
-            print(err)
-        except IsADirectoryError:
-            print("AAAA")
+        self.workbook = xlrd.open_workbook(schedule_path, formatting_info=True)
         self.worksheet = self.workbook.sheet_by_index(0)
 
     def get_merged_cell_value(self, row, col) -> str:
@@ -34,7 +30,9 @@ class Parser:
                 val = self.get_merged_cell_value(i, group_index)
                 if val is None:
                     val = self.worksheet.cell_value(i, group_index)
-                schedule_numerator.append([self.get_merged_cell_value(i, 0), self.get_merged_cell_value(i, 1), val])
+                if val != "":
+                    schedule_numerator.append([self.__get_day_index(self.get_merged_cell_value(i, 0)),
+                                               self.__get_time(self.get_merged_cell_value(i, 1)), val])
         return schedule_numerator
 
     def parse_denominator_schedule(self, course_num, group_num, subgroup_num) -> list:
@@ -45,12 +43,39 @@ class Parser:
             val = self.get_merged_cell_value(i, group_index)
             if val is None:
                 val = self.worksheet.cell_value(i, group_index)
-            schedule_denominator.append([self.get_merged_cell_value(i, 0), self.get_merged_cell_value(i, 1), val])
+            if val != "":
+                schedule_denominator.append([self.__get_day_index(self.get_merged_cell_value(i, 0)),
+                                             self.__get_time(self.get_merged_cell_value(i, 1)), val])
             delimiter_list = [19, 36, 53, 70, 87]
             if i in delimiter_list:
                 i += 1
             i += 2
         return schedule_denominator
+
+    @staticmethod
+    def __get_time(val):
+        time_list = val.replace(' ', '').split('-')
+        start_time_list = time_list[0].split(':')
+        end_time_list = time_list[1].split(':')
+        start_time = time(hour=int(start_time_list[0]), minute=int(start_time_list[1]))
+        end_time = time(hour=int(end_time_list[0]), minute=int(end_time_list[1]))
+        return [start_time, end_time]
+
+    @staticmethod
+    def __get_day_index(val):
+        match val:
+            case "Понедельник":
+                return 0
+            case "Вторник":
+                return 1
+            case "Среда":
+                return 2
+            case "Четверг":
+                return 3
+            case "Пятница":
+                return 4
+            case "Суббота":
+                return 5
 
     def __get_course(self, course_num):
         first_course = range(2, 34)
@@ -70,7 +95,6 @@ class Parser:
     def __get_group_index(self, group_num, course_num, subgroup_num):
         course_range = self.__get_course(course_num)
         curr_group = f'{group_num}группа'
-        print(curr_group)
         group_index = -1
         for i in course_range:
             if self.worksheet.cell_value(1, i).replace(' ', '') == curr_group:
@@ -79,5 +103,14 @@ class Parser:
                 else:
                     group_index = i
                 break
-        print(group_index)
         return group_index
+
+# def main():
+#     parser = Parser("./resources/schedule.xls")
+#     a = parser.parse_denominator_schedule(3, 5, 2)
+#     for el in a:
+#         print(el)
+#
+#
+# if __name__ == '__main__':
+#     main()
