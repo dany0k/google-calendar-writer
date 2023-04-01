@@ -130,4 +130,7 @@ dmypy.json
 
 # Secret data not need to be uploaded
 ./src/resources/token.json
+./src/resources/credentials.json
+
+# Idea files
 .idea
