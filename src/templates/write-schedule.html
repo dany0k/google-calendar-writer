@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Google Claendar Writer {% endblock %}</h1>
+<h1>{% block title %} Google Calendar Writer {% endblock %}</h1>
 <div class="continer">
-    <p>Hello</p>
     <form class='form-horizontal' method='POST' action="">
         {{ form.csrf_token() }}
+    <div class="form-group">
+            {{ form.course_number.label }}
+            {{ form.course_number(class="form-control") }}
+            {% for error in form.course_number.errors %}
+            <div class="alert alert-danger">
+                 {{ error }}
+            </div>
+            {% endfor%}
+        </div>
         <div class="form-group">
             {{ form.group_number.label }}
             {{ form.group_number(class="form-control") }}
@@ -15,10 +23,10 @@
             </div>
             {% endfor%}
         </div>
-        <div class="form-group">
-            {{ form.course_number.label }}
-            {{ form.course_number(class="form-control") }}
-            {% for error in form.course_number.errors %}
+    <div class="form-group">
+            {{ form.subgroup_number.label }}
+            {{ form.subgroup_number(class="form-control") }}
+            {% for error in form.subgroup_number.errors %}
             <div class="alert alert-danger">
                  {{ error }}
             </div>
