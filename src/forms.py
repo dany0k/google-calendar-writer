@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Length
 
 
 class SubmitScheduleForm(FlaskForm):
-    submit = SubmitField(label="Submit")
+    submit = SubmitField(label="Подтвердить")
     group_number = StringField(
         label='Номер группы',
         validators=[

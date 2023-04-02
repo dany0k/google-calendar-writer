@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Google Calendar Writer</title>
+    <title>{% block title %}
+    {% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
 </head>
 
@@ -20,6 +21,9 @@
                             </a>
                             <a href="{{ url_for('write_schedule') }}" class="navbar-item">
                                 Schedule
+                            </a>
+                            <a href="{{ url_for('write_schedule') }}" class="navbar-item">
+                                Admin
                             </a>
                         </div>
                     </div>
