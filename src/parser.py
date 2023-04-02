@@ -104,13 +104,3 @@ class Parser:
                     group_index = i
                 break
         return group_index
-
-# def main():
-#     parser = Parser("./resources/schedule.xls")
-#     a = parser.parse_denominator_schedule(3, 5, 2)
-#     for el in a:
-#         print(el)
-#
-#
-# if __name__ == '__main__':
-#     main()
