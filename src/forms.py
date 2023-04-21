@@ -1,6 +1,8 @@
+import this
+
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, SubmitField, PasswordField, FileField
+from wtforms.validators import DataRequired, Length, Regexp
 
 
 class SubmitScheduleForm(FlaskForm):
@@ -24,5 +26,33 @@ class SubmitScheduleForm(FlaskForm):
         validators=[
             DataRequired(),
             Length(max=2)
+        ]
+    )
+
+
+class AdminForm(FlaskForm):
+    submit = SubmitField(label="Войти")
+    login_field = StringField(
+        label="Логин",
+        validators=[
+            DataRequired(),
+            Length(max=10)
+        ]
+    )
+    pass_field = PasswordField(
+        label="Пароль",
+        validators=[
+            DataRequired(),
+            Length(max=10)
+        ]
+    )
+
+
+class AdminSettingsForm(FlaskForm):
+    submit = SubmitField(label="Подтвердить")
+    file = FileField(
+        label="Ссылка на расписание",
+        validators=[
+            DataRequired()
         ]
     )

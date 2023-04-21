@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Выберите файл формата xls</h1>
+    <form class='form-horizontal' method='POST' enctype="multipart/form-data">
+        {{ form.csrf_token() }}
+    <div class="container">
+         <div class="form-group" >
+            {{ form.file }}
+        </div>
+        <br>
+        <div class="form-group" >
+            {{ form.submit(class="btn btn_primary") }}
+        </div>
+    </div>
+    </form>
+{% endblock %}

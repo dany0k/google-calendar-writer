@@ -16,7 +16,7 @@ from parser import Parser
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 TOKEN_PATH = 'resources/token.json'
 CREDENTIALS_PATH = 'resources/credentials.json'
-SCHEDULE_PATH = 'resources/schedule.xls'
+SCHEDULE_PATH = 'upload/schedule.xls'
 
 NOMINATOR = 'nominator'
 DENOMINATOR = 'denominator'
@@ -43,7 +43,10 @@ def process(course, group, subgroup):
 
 
 def create_schedule(service, course, group, subgroup):
-    parser = Parser(SCHEDULE_PATH)
+    if SCHEDULE_PATH.title() != "":
+        parser = Parser(SCHEDULE_PATH)
+    else:
+        return "Error! File not exists!"
     denom_shchedule = parser.parse_denominator_schedule(course, group, subgroup)
     nom_shchedule = parser.parse_nominator_schedule(course, group, subgroup)
     for el in denom_shchedule:
@@ -51,13 +54,13 @@ def create_schedule(service, course, group, subgroup):
         start_time = el[1][0]
         end_time = el[1][1]
         summary = el[2]
-        create_events(service, start_time, end_time, day_index, summary, NOMINATOR)
+        create_events(service, start_time, end_time, day_index, summary, DENOMINATOR)
     for el in nom_shchedule:
         day_index = el[0]
         start_time = el[1][0]
         end_time = el[1][1]
         summary = el[2]
-        create_events(service, start_time, end_time, day_index, summary, DENOMINATOR)
+        create_events(service, start_time, end_time, day_index, summary, NOMINATOR)
 
 
 def create_events(service, start_time, end_time, day_index, summary, weektype):
