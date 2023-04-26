@@ -30,7 +30,7 @@ class SubmitScheduleForm(FlaskForm):
     )
 
 
-class AdminForm(FlaskForm):
+class LoginForm(FlaskForm):
     submit = SubmitField(label="Войти")
     login_field = StringField(
         label="Логин",
@@ -48,7 +48,7 @@ class AdminForm(FlaskForm):
     )
 
 
-class AdminSettingsForm(FlaskForm):
+class AdminForm(FlaskForm):
     submit = SubmitField(label="Подтвердить")
     file = FileField(
         label="Ссылка на расписание",
