@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
-
+{% block title %}{{titile}}{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
 {% block content %}
-    <h1>{% block title %} Google Calendar Schedule Writer {% endblock %}</h1>
-
+    <main class="px-3">
+    <h1>Schedule Writer</h1>
+        <p class="lead">При помощи данного веб сервиса, вы можете добавить расписание ФКН в ваш <b>Google Календарь</b></p>
+    <p class="lead">
+      <a href="{{ url_for('write_schedule') }}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Начать</a>
+    </p>
+  </main>
 {% endblock %}

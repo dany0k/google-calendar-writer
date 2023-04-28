@@ -11,23 +11,21 @@
 
 {% endfor %}
 
-<h1>{% block title %} Введите логин и пароль {% endblock %}</h1>
+<h1>{% block title %} Вход в учетную запись администратора {% endblock %}</h1>
     <form class='form-horizontal' method='POST' action="">
         {{ form.csrf_token() }}
     <div class="container">
         <div class="form-group" style="padding: 8px">
-            {{ form.login_field.label }}
         <br>
             {{ form.login_field(class="form-control") }}
         </div>
         <div class="form-group" style="padding: 8px">
-            {{ form.pass_field.label }}
         <br>
             {{ form.pass_field(class="form-control") }}
         </div>
     </div>
-        <div class="form-group" >
-            {{ form.submit(class="btn btn_primary") }}
+        <div class="form-group" style="padding: 8px">
+            {{ form.submit(class="btn btn-lg btn-secondary fw-bold border-white bg-white") }}
         </div>
     </form>
 {% endblock %}

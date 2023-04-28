@@ -1,0 +1,16 @@
+.loading {
+    font-size: 84px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    text-align: center;
+  }
+  
+  /* code #1 */
+  @keyframes loading01 {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
