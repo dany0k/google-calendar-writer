@@ -84,4 +84,4 @@ def write_schedule():
 
 @app.route('/temp')
 def check():
-    return render_template('base1.html')
+    return render_template('base.html')

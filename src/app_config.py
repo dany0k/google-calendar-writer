@@ -7,8 +7,8 @@ import os.path
 
 
 class Config:
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(BASE_DIR, "app.db")
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + '/db'
+    db_path = os.path.join(BASE_DIR, "db/app.db")
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
     SECRET_KEY = 'we4fh%gc_za:*8G5V=fbv'
     UPLOAD_DIR = './upload'
@@ -16,7 +16,7 @@ class Config:
     MAX_WEIGHT = 1000
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config["SQLALCHEMY_ECHO"] = True
 app.config.from_object(Config())
 app.config['UPLOAD_FOLDER'] = Config.UPLOAD_DIR

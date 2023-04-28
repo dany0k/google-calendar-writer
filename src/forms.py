@@ -1,31 +1,32 @@
-import this
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, FileField
-from wtforms.validators import DataRequired, Length, Regexp
+from wtforms import StringField, SubmitField, PasswordField, FileField, IntegerField
+from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 
 
 class SubmitScheduleForm(FlaskForm):
     submit = SubmitField(label="Подтвердить")
-    group_number = StringField(
-        label='Номер группы',
-        validators=[
-            DataRequired(),
-            Length(max=2)
-        ]
-    )
-    course_number = StringField(
+    course_number = IntegerField(
         label='Номер курса',
+        render_kw={"placeholder": "Номер курса"},
         validators=[
             DataRequired(),
-            Length(max=2)
+            NumberRange(min=1, max=10)
         ]
     )
-    subgroup_number = StringField(
-        label='Номер подгруппы',
+    group_number = IntegerField(
+        label='Номер группы',
+        render_kw={"placeholder": "Номер группы"},
         validators=[
             DataRequired(),
-            Length(max=2)
+            NumberRange(min=1, max=10)
+        ]
+    )
+    subgroup_number = IntegerField(
+        label='Номер подгруппы',
+        render_kw={"placeholder": "Номер подгруппы"},
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=10)
         ]
     )
 
@@ -34,6 +35,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField(label="Войти")
     login_field = StringField(
         label="Логин",
+        render_kw={"placeholder": "Логин"},
         validators=[
             DataRequired(),
             Length(max=10)
@@ -41,6 +43,7 @@ class LoginForm(FlaskForm):
     )
     pass_field = PasswordField(
         label="Пароль",
+        render_kw={"placeholder": "Пароль"},
         validators=[
             DataRequired(),
             Length(max=10)

@@ -2,7 +2,6 @@ from datetime import time
 
 import xlrd
 
-
 class Parser:
     workbook: xlrd.book
     worksheet: xlrd.book.XL_WORKSHEET

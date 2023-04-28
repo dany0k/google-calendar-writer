@@ -54,13 +54,13 @@ def create_schedule(service, course, group, subgroup):
         start_time = el[1][0]
         end_time = el[1][1]
         summary = el[2]
-        create_events(service, start_time, end_time, day_index, summary, DENOMINATOR)
+        create_events(service, start_time, end_time, day_index, summary, NOMINATOR)
     for el in nom_shchedule:
         day_index = el[0]
         start_time = el[1][0]
         end_time = el[1][1]
         summary = el[2]
-        create_events(service, start_time, end_time, day_index, summary, NOMINATOR)
+        create_events(service, start_time, end_time, day_index, summary, DENOMINATOR)
 
 
 def create_events(service, start_time, end_time, day_index, summary, weektype):
