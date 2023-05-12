@@ -8,7 +8,7 @@
 {% block scripts %}
     {{ super()  }}
 {% endblock %}
-<div id="preloader" class="preloader">
+<div id="preloader" class="preloader" style="display: none;">
     <div class="preloader__row">
       <div class="preloader__item"></div>
       <div class="preloader__item"></div>
@@ -20,7 +20,7 @@
     <form class='form-horizontal' method='POST' action="">
         {{ form.csrf_token() }}
         <div class="container">
-            <div class="form-group" style="padding: 8px">
+            <div class="form-group" style="padding: 8px" id="course_num_id">
                 {{ form.course_number(class="form-control") }}
                 {% for error in form.course_number.errors %}
                 <div class="alert alert-danger">
@@ -29,7 +29,7 @@
                 {% endfor%}
             </div>
             <br>
-            <div class="form-group" style="padding: 8px">
+            <div class="form-group" style="padding: 8px" id="group_num_id">
                 {{ form.group_number(class="form-control") }}
                 {% for error in form.group_number.errors %}
                 <div class="alert alert-danger">
@@ -38,7 +38,7 @@
                 {% endfor%}
             </div>
             <br>
-            <div class="form-group" style="padding: 8px">
+            <div class="form-group" style="padding: 8px" id="subgroup_num_id">
                 {{ form.subgroup_number(class="form-control") }}
                 {% for error in form.subgroup_number.errors %}
                 <div class="alert alert-danger">
@@ -47,7 +47,7 @@
                 {% endfor%}
             </div>
             <br>
-            <div class="form-group" style="padding: 8px">
+            <div class="form-group" style="padding: 8px" id="week_num_id">
                 {{ form.week_amount(class="form-control") }}
                 {% for error in form.week_amount.errors %}
                 <div class="alert alert-danger">
