@@ -22,7 +22,7 @@ NOMINATOR = 'nominator'
 DENOMINATOR = 'denominator'
 
 
-def process(course, group, subgroup):
+def process(course, group, subgroup, week_amount):
     creds = None
     if os.path.exists(''):
         creds = Credentials.from_authorized_user_file(TOKEN_PATH, SCOPES)
@@ -37,12 +37,12 @@ def process(course, group, subgroup):
             token.write(creds.to_json())
     try:
         service = build('calendar', 'v3', credentials=creds)
-        create_schedule(service, course, group, subgroup)
+        create_schedule(service, course, group, subgroup, week_amount)
     except HttpError as error:
         print('An error occurred: %s' % error)
 
 
-def create_schedule(service, course, group, subgroup):
+def create_schedule(service, course, group, subgroup, week_amount):
     if SCHEDULE_PATH.title() != "":
         parser = Parser(SCHEDULE_PATH)
     else:
@@ -54,16 +54,16 @@ def create_schedule(service, course, group, subgroup):
         start_time = el[1][0]
         end_time = el[1][1]
         summary = el[2]
-        create_events(service, start_time, end_time, day_index, summary, NOMINATOR)
+        create_events(service, start_time, end_time, day_index, summary, week_amount, NOMINATOR)
     for el in nom_shchedule:
         day_index = el[0]
         start_time = el[1][0]
         end_time = el[1][1]
         summary = el[2]
-        create_events(service, start_time, end_time, day_index, summary, DENOMINATOR)
+        create_events(service, start_time, end_time, day_index, summary, week_amount, DENOMINATOR)
 
 
-def create_events(service, start_time, end_time, day_index, summary, weektype):
+def create_events(service, start_time, end_time, day_index, summary, week_amount, weektype):
     timezone = pytz.timezone('Europe/Moscow')
     today = datetime.today().weekday()
     day_offset = 7 - today  # Нужен для того, чтобы расписание начиналось с пн
@@ -90,7 +90,7 @@ def create_events(service, start_time, end_time, day_index, summary, weektype):
             'timeZone': timezone.zone,
         },
         'recurrence': [
-            f'RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT={2};BYDAY={day}'
+            f'RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT={week_amount};BYDAY={day}'
         ],
         'reminders': {
             'useDefault': False,

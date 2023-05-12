@@ -1,99 +1,69 @@
-* {
-    padding: 0;
-    margin: 0;
-}
-
-body {
-    font-size: 16px;
-    overflow-x: hidden;
-}
-
-img {
-    width: 100%;
-}
-
-.complete-text {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #212529;
-    z-index: 1000;
-    transition: all .09s ease-out;
-}
-
 .preloader {
-    position: absolute;
+    /*фиксированное позиционирование*/
+    position: fixed;
+    /* координаты положения */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #212529;
-    z-index: 1000;
-    transition: all .09s ease-out;
-}
-
-.preloader--hide {
-    opacity: 0;
-    visibility: hidden;
-    z-index: -1;
-}
-
-.preloader__loader, .preloader__percents {
-    position: absolute;
+    right: 0;
+    bottom: 0;
+    /* фоновый цвет элемента */
+    background: #212529;
+    /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
+    z-index: 1001;
+  }
+  
+  .preloader__row {
+    position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.preloader__percents {
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-
-
-
-
-@keyframes ldio-zgxx64th47 {
-    0% { transform: translate(-50%,-50%) rotate(0deg); }
-    100% { transform: translate(-50%,-50%) rotate(360deg); }
-}
-
-.ldio-zgxx64th47 div {
+    width: 70px;
+    height: 70px;
+    margin-top: -35px;
+    margin-left: -35px;
+    text-align: center;
+    animation: preloader-rotate 2s infinite linear;
+  }
+  
+  .preloader__item {
     position: absolute;
-    width: 100px;
-    height: 100px;
-    border: 10px solid #695be1;
-    border-top-color: transparent;
-    border-radius: 50%;
-}
-
-.ldio-zgxx64th47 div {
-    animation: ldio-zgxx64th47 1s linear infinite;
-    top: 100px;
-    left: 100px
-}
-
-.loadingio-spinner-rolling-wopxwk46ahe {
-    width: 200px;
-    height: 200px;
     display: inline-block;
-    overflow: hidden;
-    background: rgba(241, 242, 243, 0);
-}
-
-.ldio-zgxx64th47 {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform: translateZ(0) scale(1);
-    backface-visibility: hidden;
-    transform-origin: 0 0;
-}
-
-.ldio-zgxx64th47 div {
-    box-sizing: content-box;
-}
+    top: 0;
+    background-color: #337ab7;
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    animation: preloader-bounce 2s infinite ease-in-out;
+  }
+  
+  .preloader__item:last-child {
+    top: auto;
+    bottom: 0;
+    animation-delay: -1s;
+  }
+  
+  @keyframes preloader-rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes preloader-bounce {
+  
+    0%,
+    100% {
+      transform: scale(0);
+    }
+  
+    50% {
+      transform: scale(1);
+    }
+  }
+  
+  .loaded_hiding .preloader {
+    transition: 0.3s opacity;
+    opacity: 0;
+  }
+  
+  .loaded .preloader {
+    display: none;
+  }

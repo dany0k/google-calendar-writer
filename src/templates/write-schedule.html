@@ -6,17 +6,14 @@
 {% endblock %}
 {% block content %}
 {% block scripts %}
-    {{ super() }}
+    {{ super()  }}
 {% endblock %}
-<div id="preloader" class="preloader" style="display: none">
-    <div class="preloader__loader">
-        <div class="loadingio-spinner-rolling-wopxwk46ahe">
-            <div class="ldio-zgxx64th47">
-                <div></div>
-            </div>
-        </div>
+<div id="preloader" class="preloader">
+    <div class="preloader__row">
+      <div class="preloader__item"></div>
+      <div class="preloader__item"></div>
     </div>
-</div>
+  </div>
 <h1>{% block title %} Заполнить расписание {% endblock %}</h1>
 <br>
 <div class="continer">
@@ -44,6 +41,15 @@
             <div class="form-group" style="padding: 8px">
                 {{ form.subgroup_number(class="form-control") }}
                 {% for error in form.subgroup_number.errors %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endfor%}
+            </div>
+            <br>
+            <div class="form-group" style="padding: 8px">
+                {{ form.week_amount(class="form-control") }}
+                {% for error in form.week_amount.errors %}
                 <div class="alert alert-danger">
                     {{ error }}
                 </div>

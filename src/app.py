@@ -1,14 +1,16 @@
 import os
 import re
 
+from flask import Flask, flash, redirect, render_template, request, url_for
+from flask_login import (LoginManager, UserMixin, current_user, login_required,
+                         login_user, logout_user)
+from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
-from app_config import app, db, login_manager
-from flask import Flask, render_template, request, redirect, url_for, flash
-from forms import SubmitScheduleForm, LoginForm, AdminForm
-from model import *
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+
 import schedule
+from app_config import app, db, login_manager
+from forms import AdminForm, LoginForm, SubmitScheduleForm
+from model import *
 
 CURRENT_USER_ID = 0
 
@@ -77,7 +79,8 @@ def write_schedule():
         course_number = int(form.course_number.data)
         group_number = int(form.group_number.data)
         subgroup_number = int(form.subgroup_number.data)
-        schedule.process(course_number, group_number, subgroup_number)
+        week_amount = int(form.week_amount.data)
+        schedule.process(course_number, group_number, subgroup_number, week_amount)
         os.remove('resources/token.json')
     return render_template('write-schedule.html', form=form)
 

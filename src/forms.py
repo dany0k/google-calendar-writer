@@ -18,7 +18,7 @@ class SubmitScheduleForm(FlaskForm):
         render_kw={"placeholder": "Номер группы"},
         validators=[
             DataRequired(),
-            NumberRange(min=1, max=10)
+            NumberRange(min=1, max=11)
         ]
     )
     subgroup_number = IntegerField(
@@ -27,6 +27,14 @@ class SubmitScheduleForm(FlaskForm):
         validators=[
             DataRequired(),
             NumberRange(min=1, max=10)
+        ]
+    )
+    week_amount = IntegerField(
+        label="Количество недель",
+        render_kw={"placeholder": "Количество заполняемых недель"},
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=20)
         ]
     )
 
