@@ -106,9 +106,9 @@ def get_week_type() -> str:
     today = datetime.today().date()
     week_number = today.isocalendar()[1]
     if week_number % 2 == 0:
-        return 'denominator'
-    else:
         return 'nominator'
+    else:
+        return 'denominator'
 
 
 # Замина интов на строки (Нужно для создания ивента)
